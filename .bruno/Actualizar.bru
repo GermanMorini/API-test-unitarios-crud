@@ -1,0 +1,20 @@
+meta {
+  name: Actualizar
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:8080/api/update
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id":"a5d1284a-cbd5-4448-9dea-30d2bde54a4d",
+    "nombre":"ACTUALIZADO DE NUEVO",
+    "cantidad":42069,
+    "vencimiento":"2023-12-28"
+  }
+}

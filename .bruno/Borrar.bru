@@ -1,0 +1,24 @@
+meta {
+  name: Borrar
+  type: http
+  seq: 6
+}
+
+delete {
+  url: http://localhost:8080/api/delete?id=390aaf20-ac58-46bf-a9ec-27148d491c66
+  body: none
+  auth: none
+}
+
+query {
+  id: 390aaf20-ac58-46bf-a9ec-27148d491c66
+}
+
+body:json {
+  {
+    "id":"dcf01317-6830-4aba-bcc6-bcde97025d18",
+    "nombre":"ACTUALIZADO DE NUEVO",
+    "cantidad":42069,
+    "vencimiento":"2023-12-28"
+  }
+}

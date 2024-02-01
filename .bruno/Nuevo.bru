@@ -1,0 +1,19 @@
+meta {
+  name: Nuevo
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/create
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nombre":"La campagnola",
+    "cantidad":42069,
+    "vencimiento":"2023-01-23"
+  }
+}
