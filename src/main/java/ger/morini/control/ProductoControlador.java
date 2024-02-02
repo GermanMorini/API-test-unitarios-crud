@@ -10,6 +10,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -54,7 +55,7 @@ public class ProductoControlador {
       }
 
       @PutMapping("/update")
-      private ResponseEntity<Object> actualizar(@RequestBody Producto p) {
+      private Object actualizar(@RequestBody Producto p) {
             Optional<Producto> tmp = repo.findById(p.getId());
 
             if (tmp.isEmpty()) return ResponseEntity.status(404).build();
@@ -72,7 +73,7 @@ public class ProductoControlador {
       }
 
       @DeleteMapping("/delete")
-      private ResponseEntity<Object> borrar(@RequestParam UUID id) {
+      private Object borrar(@RequestParam UUID id) {
             log.debug("Borrando el registro de ID: %s".formatted(id));
 
             if (repo.findById(id).isEmpty()) {

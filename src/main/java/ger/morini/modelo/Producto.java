@@ -15,6 +15,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Producto {
 
+      public Producto(String nombre, Integer cantidad, LocalDate vencimiento) {
+            this.nombre = nombre;
+            this.cantidad = cantidad;
+            this.vencimiento = vencimiento;
+      }
+
       @Id
       @GeneratedValue(strategy = GenerationType.UUID)
       private UUID id;
