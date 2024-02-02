@@ -39,25 +39,29 @@ public class ProductoControlador {
       @GetMapping("/retrieve")
       private ResponseEntity<List<Producto>> todos() {
             log.debug("Consultando todos los productos");
-            return ResponseEntity
-                    .status(HttpStatus.CREATED)
-                    .body(repo.findAll());
+            return ResponseEntity.ok(repo.findAll());
       }
 
       @GetMapping("/retrieve/byName")
       private ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String nombre) {
-            return ResponseEntity.ok(repo.findByNombre(nombre));
+            return repo.findByNombre(nombre)
+                    .map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.notFound().build());
       }
 
       @GetMapping("/retrieve/byId")
-      private ResponseEntity<Optional<Producto>> buscarPorId(@RequestParam UUID id) {
-            return ResponseEntity.ok(repo.findById(id));
+      private ResponseEntity<Producto> buscarPorId(@RequestParam UUID id) {
+            return repo.findById(id)
+                    .map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.notFound().build());
       }
 
       @GetMapping("/expired")
       private ResponseEntity<List<Producto>> consultarVencidos() {
             log.debug("Consultando productos vencidos");
-            return ResponseEntity.ok(repo.findExpired());
+            return repo.findExpired()
+                    .map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.notFound().build());
       }
 
       @PostMapping("/create")
@@ -92,9 +96,7 @@ public class ProductoControlador {
       private ResponseEntity<Object> borrar(@RequestParam UUID id) {
             log.debug("Borrando el registro de ID: %s".formatted(id));
 
-            if (repo.findById(id).isEmpty()) {
-                  return ResponseEntity.status(404).build();
-            }
+            if (repo.findById(id).isEmpty()) return ResponseEntity.status(404).build();
 
             repo.deleteById(id);
 

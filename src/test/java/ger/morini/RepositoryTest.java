@@ -2,7 +2,6 @@ package ger.morini;
 
 import ger.morini.modelo.Producto;
 import ger.morini.repositorio.ProductoRepositorio;
-import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -10,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +20,7 @@ import static org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTest
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE) // Esta en caso de usar otra BDD que no sea H2
 @TestMethodOrder(value = MethodOrderer.OrderAnnotation.class) // le indicaremos el orden en que se ejecutarán las pruebas
-public class ProductoTest {
+public class RepositoryTest {
 
       @Autowired
       private ProductoRepositorio repo;
@@ -48,17 +48,17 @@ public class ProductoTest {
 
             repo.save(test);
 
-            assertFalse(repo.findByNombre("Test: ").isEmpty());
-            assertFalse(repo.findByNombre(": bus").isEmpty());
-            assertFalse(repo.findByNombre("bre").isEmpty());
-            assertFalse(repo.findByNombre(" por ").isEmpty());
-            assertFalse(repo.findByNombre(" busqueda po").isEmpty());
-            assertFalse(repo.findByNombre("queda").isEmpty());
+            assertFalse(repo.findByNombre("Test: ").get().isEmpty());
+            assertFalse(repo.findByNombre(": bus").get().isEmpty());
+            assertFalse(repo.findByNombre("bre").get().isEmpty());
+            assertFalse(repo.findByNombre(" por ").get().isEmpty());
+            assertFalse(repo.findByNombre(" busqueda po").get().isEmpty());
+            assertFalse(repo.findByNombre("queda").get().isEmpty());
 
-            assertTrue(repo.findByNombre("qrt").isEmpty());
-            assertTrue(repo.findByNombre("TEST").isEmpty());
-            assertTrue(repo.findByNombre("NOMBRE").isEmpty());
-            assertTrue(repo.findByNombre("!dwa;").isEmpty());
+            assertTrue(repo.findByNombre("qrt").get().isEmpty());
+            assertTrue(repo.findByNombre("TEST").get().isEmpty());
+            assertTrue(repo.findByNombre("NOMBRE").get().isEmpty());
+            assertTrue(repo.findByNombre("!dwa;").get().isEmpty());
       }
 
       @Test
