@@ -1,5 +1,9 @@
 {
   "version": "1",
   "name": "CRUDJUnitTesting",
-  "type": "collection"
+  "type": "collection",
+  "presets": {
+    "requestType": "http",
+    "requestUrl": "http://localhost:8080/"
+  }
 }
