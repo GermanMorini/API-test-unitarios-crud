@@ -42,6 +42,16 @@ public class ProductoControlador {
             return repo.findAll();
       }
 
+      @GetMapping("/retrieve/byName")
+      private List<Producto> buscarPorNombre(@RequestParam String nombre) {
+            return repo.findByNombre(nombre);
+      }
+
+      @GetMapping("/retrieve/byId")
+      private Optional<Producto> buscarPorId(@RequestParam UUID id) {
+            return repo.findById(id);
+      }
+
       @GetMapping("/expired")
       private List<Producto> consultarVencidos() {
             log.debug("Consultando productos vencidos");
@@ -51,6 +61,9 @@ public class ProductoControlador {
       @PostMapping("/create")
       private Producto guardar(@RequestBody Producto p) {
             log.debug("Guardando producto: %s".formatted(p));
+
+            if (p.getId() == null) p.setId(UUID.randomUUID());
+
             return repo.save(p);
       }
 

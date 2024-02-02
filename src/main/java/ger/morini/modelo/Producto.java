@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.IdGeneratorType;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -22,7 +23,7 @@ public class Producto {
       }
 
       @Id
-      @GeneratedValue(strategy = GenerationType.UUID)
+//      @GeneratedValue(strategy = GenerationType.UUID)
       private UUID id;
 
       @Column(length = 64, name = "product")

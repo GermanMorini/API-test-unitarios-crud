@@ -13,6 +13,9 @@ public interface ProductoRepositorio extends JpaRepository<Producto, UUID> {
       @Query("SELECT p FROM Producto p WHERE p.vencimiento < CURRENT_DATE")
       List<Producto> findExpired();
 
-      @Query("SELECT COUNT(p) FROM Producto p")
+      @Query("SELECT COUNT(*) FROM Producto p")
       int getProductCount();
+
+      @Query("SELECT p FROM Producto p WHERE p.nombre LIKE %:nom%")
+      List<Producto> findByNombre(String nom);
 }
