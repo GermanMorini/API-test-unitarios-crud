@@ -5,6 +5,34 @@
     <title>Ayuda</title>
 </head>
 <body>
-    <h1>Hola mundo</h1>
+    <h1>API para realizar pruebas de CRUD</h1>
+    <p>Lista de endpoints:</p>
+    <ul>
+        <li><b>/api</b> Muestra esta página de ayuda</li>
+        <li><b>/api/retrieve</b> Retorna todos los registros</li>
+        <li><b>/api/expired</b> Retorna todos los registros vencidos</li>
+        <li><b>/api/retrieve/byName?name=NOMBRE</b> Busca los registros que contengan 'NOMBRE' en el nombre (case-sensitive)</li>
+        <li><b>/api/retrieve/byId?id=UUID</b> Busca el registro de id 'UUID'</li>
+        <li><b>/api/create</b> Crea un nuevo registro, el body es el siguiente:<br>
+            <pre><code>
+    Se puede especificar el id:
+        {
+            "id":"b5425ff4-df81-4c57-84ba-44144cf0c815",
+            "nombre":"NUEVA ENTRADA",
+            "cantidad":42069,
+            "vencimiento":yyyy-mm-dd
+        }
+
+    Sino, se genera automáticamente:
+        {
+            "nombre":"NUEVA ENTRADA",
+            "cantidad":42069
+            "vencimiento":yyyy-mm-dd
+        }
+            </code></pre>
+        </li>
+        <li><b>/api/update</b> Actualiza la información de un registro. Se debe usar el primer esquema de body mostrado anteriormente, indicando el id a modificar</li>
+        <li><b>/api/delete?id=UUID</b> Elimina un registro por su id 'UUID'</li>
+    </ul>
 </body>
 </html>

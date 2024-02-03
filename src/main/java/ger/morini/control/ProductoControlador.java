@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -44,7 +43,7 @@ public class ProductoControlador {
 
       @GetMapping("/retrieve/byName")
       private ResponseEntity<List<Producto>> buscarPorNombre(@RequestParam String nombre) {
-            return repo.findByNombre(nombre)
+            return repo.findByNombreContainsIgnoreCase(nombre)
                     .map(ResponseEntity::ok)
                     .orElseGet(() -> ResponseEntity.notFound().build());
       }
@@ -68,7 +67,7 @@ public class ProductoControlador {
       private ResponseEntity<Producto> guardar(@RequestBody Producto p) {
             log.debug("Guardando producto: %s".formatted(p));
 
-            if (p.getCantidad() < 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(p);
+            if (p.getCantidad() < 0) return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
             if (p.getId() == null) p.setId(UUID.randomUUID());
 
             return ResponseEntity
@@ -78,18 +77,15 @@ public class ProductoControlador {
 
       @PutMapping("/update")
       private ResponseEntity<Producto> actualizar(@RequestBody Producto p) {
-            Optional<Producto> tmp = repo.findById(p.getId());
+            log.debug("Actualizando producto: %s".formatted(p));
 
-            if (tmp.isEmpty()) return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return repo.findById(p.getId()).map(pr -> {
+                  pr.setNombre(p.getNombre());
+                  pr.setCantidad(p.getCantidad());
+                  pr.setVencimiento(p.getVencimiento());
 
-            log.debug("Actualizando producto: %s por %s".formatted(tmp, p));
-
-            Producto old = tmp.get();
-            old.setNombre(p.getNombre());
-            old.setCantidad(p.getCantidad());
-            old.setVencimiento(p.getVencimiento());
-
-            return ResponseEntity.ok(repo.save(old));
+                  return ResponseEntity.ok(repo.save(pr));
+            }).orElseGet(() -> ResponseEntity.notFound().build());
       }
 
       @DeleteMapping("/delete")

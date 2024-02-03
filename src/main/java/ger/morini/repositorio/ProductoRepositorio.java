@@ -17,6 +17,5 @@ public interface ProductoRepositorio extends JpaRepository<Producto, UUID> {
       @Query("SELECT COUNT(*) FROM Producto p")
       int getProductCount();
 
-      @Query("SELECT p FROM Producto p WHERE p.nombre LIKE %:nom%")
-      Optional<List<Producto>> findByNombre(String nom);
+      Optional<List<Producto>> findByNombreContainsIgnoreCase(String nom);
 }

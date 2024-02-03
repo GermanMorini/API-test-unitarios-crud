@@ -6,3 +6,4 @@ Referencias:
 
 - https://www.youtube.com/watch?v=vFIzDLsbIkM
 - https://www.codejava.net/frameworks/spring-boot/junit-tests-for-spring-data-jpa
+- https://www.youtube.com/watch?v=cXQhvrWvgE8
