@@ -25,4 +25,8 @@ public class Producto {
 
       @Column(name = "expire-date")
       private LocalDate vencimiento;
+
+      public boolean isVencido() {
+            return vencimiento.isBefore(LocalDate.now());
+      }
 }
