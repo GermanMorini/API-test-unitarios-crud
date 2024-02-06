@@ -56,6 +56,8 @@ public class ProductoService {
       }
 
       public Optional<Producto> update(Producto nuevo) {
+            if (nuevo.getCantidad() < 0) return Optional.empty();
+
             return findById(nuevo.getId()).map(old -> {
                   datos.remove(old);
 

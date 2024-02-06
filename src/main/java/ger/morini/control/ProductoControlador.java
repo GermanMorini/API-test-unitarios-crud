@@ -60,7 +60,7 @@ public class ProductoControlador {
                     .orElse(ResponseEntity.notFound().build());
       }
 
-      @GetMapping("/expired")
+      @GetMapping("/retrieve/expired")
       private ResponseEntity<List<Producto>> consultarVencidos() {
             log.debug("Consultando productos vencidos");
 

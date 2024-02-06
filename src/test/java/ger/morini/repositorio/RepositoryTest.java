@@ -1,7 +1,6 @@
-package ger.morini;
+package ger.morini.repositorio;
 
 import ger.morini.modelo.Producto;
-import ger.morini.repositorio.ProductoRepositorio;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
