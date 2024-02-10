@@ -83,18 +83,46 @@ public class RepositoryTest {
       @DisplayName("Actualizar registro")
       @Order(4)
       void actualizar() {
-            test.setNombre("ACTUALIZADO");
-            test.setCantidad(1234);
-            test.setVencimiento(test.getVencimiento().minusYears(1234));
-
             repo.save(test);
 
-            assertEquals(test, repo.findById(uuid).get());
+            Producto p = Producto.builder()
+                    .id(test.getId())
+                    .nombre("ACTUALIZADO")
+                    .cantidad(69)
+                    .vencimiento(test.getVencimiento().minusYears(1234))
+                    .build();
+
+            repo.save(p);
+
+            Producto guardado = repo.findById(p.getId()).get();
+
+            assertEquals(test.getId(), guardado.getId());
+            assertNotEquals(test.getNombre(), guardado.getNombre());
+            assertNotEquals(test.getCantidad(), guardado.getCantidad());
+            assertNotEquals(test.getVencimiento(), guardado.getVencimiento());
+      }
+
+      @Test
+      @DisplayName("Contar registros")
+      @Order(5)
+      void contar() {
+            repo.save(test);
+
+            Producto p = Producto.builder()
+                    .id(UUID.randomUUID())
+                    .nombre("Otro más")
+                    .cantidad(123)
+                    .vencimiento(LocalDate.now())
+                    .build();
+
+            repo.save(p);
+
+            assertEquals(2, repo.getProductCount());
       }
 
       @Test
       @DisplayName("Eliminar producto")
-      @Order(5)
+      @Order(6)
       void eliminar() {
             repo.save(test);
             repo.deleteById(uuid);
